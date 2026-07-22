@@ -2,20 +2,18 @@
 
 **RFIDfriend** hardware companion: an ESP32 + NXP PN5180 BLE ISO 15693 reader/writer for [Magic NFC](https://github.com/RFIDfriend) and third-party apps.
 
-> **Kurz (DE):** NFC Archiver ist ein BLE-fähiger ISO-15693-Reader/Writer (ESP32 + PN5180) für die Magic-NFC-App und eigene Integrationen. Firmware-Binaries und Doku liegen hier; **kein Quellcode** (absichtlich).
+> **Kurz (DE):** NFC Archiver ist ein BLE-fähiger ISO-15693-Reader/Writer (ESP32 + PN5180) für die Magic-NFC-App und eigene Integrationen.
 
 ## What it is
 
 NFC Archiver turns a **Wemos D1 mini ESP32-WROOM** board with a **PN5180** NFC frontend into a wireless ISO 15693 (Vicinity / SLIX-class) tool over Bluetooth Low Energy. Use it with the Magic NFC iOS app, or implement the public BLE protocol in your own client.
 
-This public repository publishes:
+This repository includes:
 
 - Hardware and feature documentation
 - The BLE protocol for third-party implementers
 - A browser-based Web Serial flasher
 - Released firmware binaries (CI artifacts)
-
-It does **not** include firmware source code. That is intentional.
 
 ## Features
 
@@ -65,10 +63,6 @@ Published releases are described by:
 - [`firmware/nfc-archiver.factory.bin`](firmware/nfc-archiver.factory.bin) — merged factory image for USB install (bootloader + partitions + app)
 
 Binaries appear after CI publishes them. Until then, `firmware/` may contain only placeholders — see [firmware/README.md](firmware/README.md).
-
-## No source code
-
-This repo is documentation, flasher UI, and release binaries only. Firmware sources are maintained privately by RFIDfriend.
 
 ## License
 

@@ -59,7 +59,7 @@ BATT 34
 - Logic levels are **3.3 V**. Do not drive the ESP32 or PN5180 with 5 V IO.
 - GPIO34 is input-only — suitable for ADC, not for outputs.
 - Keep SPI wires short; poor wiring shows up as flaky NFC or bus hangs.
-- USB on the Wemos is used for the [Web Serial flasher](../flash/) and serial logs (typically 115200 baud on private builds).
+- USB on the Wemos is used for the [Web Serial flasher](../flash/) and serial logs (typically 115200 baud).
 
 ## Related
 

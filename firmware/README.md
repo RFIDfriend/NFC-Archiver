@@ -1,6 +1,6 @@
 # Firmware artifacts
 
-This folder holds **CI-published binaries** for NFC Archiver — not source code.
+This folder holds **CI-published binaries** for NFC Archiver.
 
 | File | Role |
 |------|------|
@@ -11,5 +11,3 @@ This folder holds **CI-published binaries** for NFC Archiver — not source code
 ## Placeholder note
 
 Until the first CI run uploads release artifacts, only `version.json` and this README may be present. The `.bin` files appear after CI publishes them to this path.
-
-Do not commit locally built binaries with secrets or debug-only builds unless they are intentional public releases.
