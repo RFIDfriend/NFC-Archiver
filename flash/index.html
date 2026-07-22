@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NFC Archiver — Flash</title>
+  <meta name="description" content="Flash RFIDfriend NFC Archiver firmware over USB with Web Serial." />
+  <script
+    type="module"
+    src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+  ></script>
+  <style>
+    :root {
+      --bg0: #0b0f14;
+      --bg1: #121821;
+      --line: #243041;
+      --text: #e8eef7;
+      --muted: #9aa8bc;
+      --accent: #3d9cf0;
+      --accent-dim: #2a6fad;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, #1a3050 0%, transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, #13283a 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg0), #070a0e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.25rem;
+    }
+
+    main {
+      width: min(440px, 100%);
+      background: color-mix(in srgb, var(--bg1) 92%, #000);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 2rem 1.75rem 1.75rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 0.5rem;
+    }
+
+    h1 {
+      margin: 0 0 0.35rem;
+      font-size: 1.65rem;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    .install {
+      display: flex;
+      justify-content: center;
+      margin: 1.25rem 0 1.5rem;
+    }
+
+    esp-web-install-button {
+      --esp-tools-button-color: var(--text);
+      --esp-tools-button-background: var(--accent);
+      --esp-tools-button-border-radius: 10px;
+    }
+
+    .note {
+      margin: 0;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      background: rgba(61, 156, 240, 0.08);
+      border: 1px solid rgba(61, 156, 240, 0.22);
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.45;
+    }
+
+    .note strong { color: var(--text); font-weight: 600; }
+
+    nav {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; color: #6bb4f5; }
+
+    footer {
+      margin-top: 1.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="brand">RFIDfriend</p>
+    <h1>NFC Archiver</h1>
+    <p class="lead">
+      Install firmware over USB with Web Serial. Use Chrome or Edge on desktop.
+    </p>
+
+    <div class="install">
+      <esp-web-install-button manifest="./manifest.json"></esp-web-install-button>
+    </div>
+
+    <p class="note">
+      <strong>Tip:</strong> Connect the Wemos D1 mini ESP32, then choose its serial port.
+      First install may erase flash. For wireless updates later, use BLE OTA in the Magic NFC app.
+    </p>
+
+    <nav>
+      <a href="../docs/flashing.md">Flashing guide</a>
+      <a href="../docs/hardware.md">Hardware</a>
+      <a href="../docs/ble-protocol.md">BLE protocol</a>
+      <a href="../">Repository</a>
+    </nav>
+
+    <footer>
+      Factory image: <code>../firmware/nfc-archiver.factory.bin</code> @ offset 0 ·
+      Version metadata in <code>../firmware/version.json</code>
+    </footer>
+  </main>
+</body>
+</html>

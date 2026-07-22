@@ -1,0 +1,6 @@
+# Ignore local editor noise only — firmware binaries are intentional release artifacts.
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/

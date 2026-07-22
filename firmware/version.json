@@ -1,0 +1,10 @@
+{
+  "version": "0.2.0",
+  "versionFull": "0.2.0+260723001",
+  "build": "260723001",
+  "bin": "nfc-archiver.bin",
+  "factoryBin": "nfc-archiver.factory.bin",
+  "minAppVersion": null,
+  "publishedAt": "2026-07-22T22:00:00Z",
+  "changelog": "BLE OTA support; self-contained drivers (no external PN5180/NeoPixel libs)."
+}
