@@ -1,11 +1,11 @@
 {
-  "version": "0.2.0",
-  "versionFull": "0.2.0+260723001",
-  "build": "260723001",
+  "version": "0.2.1",
+  "versionFull": "0.2.1+260723002",
+  "build": "260723002",
   "bin": "nfc-archiver.bin",
   "factoryBin": "nfc-archiver.factory.bin",
-  "size": 1201984,
-  "crc32": "5d41eeaa",
-  "publishedAt": "2026-07-22T23:04:10Z",
+  "size": 1201904,
+  "crc32": "3caf364b",
+  "publishedAt": "2026-07-22T23:23:59Z",
   "changelog": "Automated PlatformIO build from Magic-NFC monorepo."
 }
