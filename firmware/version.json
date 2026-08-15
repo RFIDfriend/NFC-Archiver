@@ -6,6 +6,6 @@
   "factoryBin": "nfc-archiver.factory.bin",
   "size": 1201904,
   "crc32": "3caf364b",
-  "publishedAt": "2026-07-22T23:27:48Z",
+  "publishedAt": "2026-08-15T23:13:47Z",
   "changelog": "Automated PlatformIO build from Magic-NFC monorepo."
 }
