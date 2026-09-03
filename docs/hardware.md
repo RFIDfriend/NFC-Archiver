@@ -8,13 +8,19 @@ Reference hardware for the public NFC Archiver firmware image.
 |------|--------|
 | Product | NFC Archiver |
 | Manufacturer | RFIDfriend.com |
-| MCU board | Wemos D1 mini ESP32-WROOM (`ESP32-WROOM`) |
-| NFC frontend | NXP PN5180 |
-| Status LED | WS2812 / WS2812B (1 pixel) |
-| Power (standard) | USB on the Wemos (3.3 V rail shared with PN5180 + LED) |
+| MCU board | Wemos D1 mini ESP32-WROOM (`ESP-WROOM-32`) |
+| NFC frontend | PN5180-NFC module (e.g. rev **R1.1-170710**) |
+| Status LED | **WS2811 Breakout** (NeoPixel-compatible single LED) |
+| Power (standard) | USB on the Wemos (shared **3.3 V** rail) |
 | Power (optional) | LiPo battery extension — see [Optional: battery extension](#optional-battery-extension) |
 
-The **standard build** is only three parts: **ESP32**, **PN5180**, and **RGB LED**. Battery hardware is an **optional extension**, not required to run the reader.
+The **standard build** is only three parts: **ESP32**, **PN5180-NFC**, and **WS2811 Breakout**. Battery hardware is an **optional extension**, not required to run the reader.
+
+### Components (reference photos)
+
+| Wemos D1 mini ESP32 | PN5180-NFC | WS2811 Breakout |
+|:-------------------:|:----------:|:---------------:|
+| ![Wemos ESP32](images/wemos-esp32.png) | ![PN5180-NFC](images/pn5180-nfc.png) | ![WS2811 Breakout](images/ws2811-breakout.png) |
 
 ---
 
@@ -24,84 +30,83 @@ The **standard build** is only three parts: **ESP32**, **PN5180**, and **RGB LED
 
 | Qty | Part | Notes |
 |-----|------|--------|
-| 1 | Wemos D1 mini ESP32-WROOM | 3.3 V logic; USB for flash / power / serial |
-| 1 | PN5180 NFC reader module | ISO 15693 / Vicinity; SPI |
-| 1 | WS2812B LED (or strip segment) | Single pixel |
-| — | Solder bridge / short jumper | Bridge PN5180 **3.3 V** ↔ **5 V** (required) |
+| 1 | Wemos D1 mini ESP32-WROOM | `ESP-WROOM-32`; USB for flash / power / serial |
+| 1 | PN5180-NFC reader module | Header **JP1**: `+5V`, `+3.3V`, `RST`, `NSS`, `MOSI`, `MISO`, `SCK`, `BUSY`, `GND`, … |
+| 1 | WS2811 Breakout | Pads **5V / DI / GND** (single status LED) |
+| — | Solder bridge / short jumper | Bridge PN5180 **`+5V` ↔ `+3.3V`** (required) |
 | — | Wiring / headers | Match pinout below |
-| — | Antenna | On-module or external per PN5180 design |
 
 ### Wiring overview
 
-![Standard wiring: ESP32, PN5180, WS2812 RGB LED](images/nfc-archiver-standard-wiring.png)
-
-*Same diagram as SVG (sharp in browsers): [standard-wiring.svg](images/standard-wiring.svg)*
+![Standard wiring with real modules: ESP32, PN5180-NFC, WS2811 Breakout](images/nfc-archiver-standard-wiring.png)
 
 ```mermaid
 flowchart LR
   subgraph STD["Standard build"]
-    ESP["Wemos D1 mini<br/>ESP32-WROOM"]
-    PN["PN5180 NFC"]
-    LED["WS2812<br/>RGB LED"]
+    ESP["Wemos D1 mini<br/>ESP-WROOM-32"]
+    PN["PN5180-NFC"]
+    LED["WS2811 Breakout"]
   end
   ESP -->|"SPI + CTRL<br/>GPIO 18/23/19/5/4/16"| PN
   ESP -->|"3.3V + GND"| PN
-  ESP -->|"GPIO14 data<br/>3.3V + GND"| LED
-  PN -.->|"3.3V ↔ 5V bridge"| PN
+  ESP -->|"GPIO14 → DI<br/>3.3V → 5V pad, GND"| LED
+  PN -.->|"+5V ↔ +3.3V bridge"| PN
 ```
 
 ### Pinout (standard)
 
-SPI and control between **ESP32** and **PN5180**, plus LED data:
+| Signal | ESP32 GPIO / rail | Destination |
+|--------|-------------------|-------------|
+| SPI SCK | **GPIO18** | PN5180 **SCK** |
+| SPI MOSI | **GPIO23** | PN5180 **MOSI** |
+| SPI MISO | **GPIO19** | PN5180 **MISO** |
+| Chip select | **GPIO5** | PN5180 **NSS** |
+| Busy | **GPIO4** | PN5180 **BUSY** |
+| Reset | **GPIO16** | PN5180 **RST** |
+| LED data | **GPIO14** | WS2811 **DI** (board label on ESP32 often **TMS**) |
+| 3.3 V | **3.3V** | PN5180 **`+3.3V` + `+5V`** (bridged); WS2811 **5V** pad |
+| Ground | **GND** | PN5180 **GND**; WS2811 **GND** |
 
-| Signal | ESP32 GPIO | PN5180 / LED |
-|--------|------------|----------------|
-| SPI SCK | **18** | SCK |
-| SPI MOSI | **23** | MOSI |
-| SPI MISO | **19** | MISO |
-| Chip select | **5** | NSS / CS |
-| Busy | **4** | BUSY |
-| Reset | **16** | RST |
-| LED data | **14** | WS2812 DIN (board label often **TMS**) |
-| 3.3 V | **3.3V** | PN5180 **3.3V** + **5V** (bridged), LED VCC |
-| Ground | **GND** | PN5180 GND, LED GND |
+PN5180 pins **GPIO / IRQ / AUX / REQ** are unused in the standard firmware build.
 
 #### Quick reference
 
 ```
-SCK  18
-MOSI 23
-MISO 19
-CS    5
-BUSY  4
-RST  16
-LED  14
+SCK   GPIO18  →  PN5180 SCK
+MOSI  GPIO23  →  PN5180 MOSI
+MISO  GPIO19  →  PN5180 MISO
+CS    GPIO5   →  PN5180 NSS
+BUSY  GPIO4   →  PN5180 BUSY
+RST   GPIO16  →  PN5180 RST
+LED   GPIO14  →  WS2811 DI
+3.3V          →  PN5180 +3.3V/+5V (bridged), WS2811 5V
+GND           →  PN5180 GND, WS2811 GND
 ```
 
-### Required: PN5180 `3.3V` ↔ `5V` bridge
+> **LED power:** One WS2811 status LED can run from the ESP32 **3.3 V** rail into the breakout’s **5V** pad. Do **not** power long LED strips from 3.3 V.
 
-On most PN5180 modules the **3.3 V** and **5 V** supply pins sit next to each other. For the standard USB/ESP32‑only build, feed the module from the Wemos **3.3 V** rail and **short those two pins** (solder bridge or jumper) so **3.3 V is applied to both**.
+### Required: PN5180 `+5V` ↔ `+3.3V` bridge
 
-![Bridge PN5180 3.3V and 5V pins](images/nfc-archiver-pn5180-bridge.png)
+On the PN5180-NFC module (JP1), **`+5V`** and **`+3.3V`** are the **top two adjacent pins**. For the standard USB/ESP32‑only build, feed the module from the Wemos **3.3 V** rail and **short those two pins** (solder bridge or jumper) so **3.3 V reaches both**.
 
-*[SVG](images/pn5180-bridge.svg)*
+![Bridge PN5180 +5V and +3.3V pins on JP1](images/nfc-archiver-pn5180-bridge.png)
 
 | Without bridge | With bridge |
 |----------------|-------------|
-| Often only one supply domain is powered → module does not boot / RF never comes up | Both module supply pins see 3.3 V → board starts |
+| Often only one supply domain is powered → module does not boot / RF never comes up | Both supply pins see 3.3 V → board starts |
 
 ```
-Wemos 3.3V  ──►  PN5180 3.3V  ──(short)──  PN5180 5V
+Wemos 3.3V  ──►  PN5180 +3.3V  ──(short)──  PN5180 +5V
 Wemos GND   ──►  PN5180 GND
 ```
 
 SPI and control stay at **3.3 V logic**. Do **not** drive ESP32 GPIOs with 5 V.
 
-> Dedicated 5 V on the module’s `5V` pin can improve RF range when a true 5 V rail exists. For the standard ESP32‑only build, bridging both pins to **3.3 V** is the documented working setup.
+> Confirm silkscreen on your module revision before soldering. Dedicated 5 V on `+5V` can improve RF range when a true 5 V rail exists; for the standard ESP32‑only build, bridging to **3.3 V** is the documented setup.
 
 ### Standard power
 
-Power the Wemos over **USB**. The onboard regulator supplies the shared **3.3 V** rail for ESP32, bridged PN5180, and LED.
+Power the Wemos over **USB**. The onboard regulator supplies the shared **3.3 V** rail for ESP32, bridged PN5180, and the status LED.
 
 ---
 
@@ -120,8 +125,6 @@ Battery operation is **not** part of the standard reader. Add it only if you wan
 ### Wiring (optional)
 
 ![Optional battery extension with 1N4007 diode](images/nfc-archiver-battery-option.png)
-
-*[SVG](images/battery-option.svg)*
 
 ```mermaid
 flowchart LR
@@ -158,7 +161,7 @@ Optional: battery voltage divider → **GPIO34** (ADC1, input‑only). Exact res
 - Logic levels are **3.3 V**. Do not drive the ESP32 or PN5180 with 5 V IO.
 - Keep SPI wires short; poor wiring shows up as flaky NFC or bus hangs.
 - USB on the Wemos is used for the [Web Serial flasher](../flash/) and serial logs (typically 115200 baud).
-- ESP32 boots but NFC dead → check the **3.3 V↔5 V bridge**. Battery pack and PN5180 flaky → check the optional **1N4007** drop.
+- ESP32 boots but NFC dead → check the **`+5V` ↔ `+3.3V` bridge**. Battery pack and PN5180 flaky → check the optional **1N4007** drop.
 
 ## Related
 
