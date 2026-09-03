@@ -23,7 +23,7 @@ This repository includes:
 - Autonomous **dumper mode** with on-device dump storage
 - Privacy password list for protected tags
 - Battery level (BAS) and Device Information (DIS)
-- WS2812 status LED
+- WS2811 / NeoPixel status LED (GPIO14)
 - Firmware updates via **desktop Web Serial** or **BLE OTA** (Magic NFC app)
 
 See [docs/features.md](docs/features.md) for details.

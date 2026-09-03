@@ -55,7 +55,7 @@ Command `0x06` replaces the on-device privacy password list (up to **16** entrie
 - ADC on **GPIO34**; percent also appears in debug JSON (`batt`).
 - Capability: `"battery": true`.
 
-## LED status (WS2812 on GPIO14)
+## LED status (WS2811 / NeoPixel on GPIO14)
 
 Approximate meaning of the base colors (flashes override briefly):
 
