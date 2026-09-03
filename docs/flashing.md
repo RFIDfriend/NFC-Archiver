@@ -65,6 +65,7 @@ Third-party apps can implement the same OTA sequence.
 | No serial port | Cable, drivers, another app holding the port |
 | Install fails mid-way | Retry erase install; try a different USB port/cable |
 | Device boots but no BLE | Confirm you flashed the RFIDfriend NFC Archiver image; check LED / battery |
+| ESP32 OK, PN5180 dead / no NFC | Bridge PN5180 **3.3 V↔5 V** and feed 3.3 V to both; with a LiPo use series **1N4007** into Wemos 3.3 V — see [hardware.md](hardware.md#power-supply) |
 | BLE OTA fails locked | Unlock first; check `bleOta` capability |
 | BLE OTA CRC error | Use the exact `nfc-archiver.bin` from the same `version.json` release |
 

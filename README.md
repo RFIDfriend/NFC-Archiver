@@ -32,7 +32,7 @@ See [docs/features.md](docs/features.md) for details.
 
 | Doc | Description |
 |-----|-------------|
-| [docs/hardware.md](docs/hardware.md) | BOM, pinout, wiring |
+| [docs/hardware.md](docs/hardware.md) | BOM, pinout, power (PN5180 3.3 V↔5 V bridge, battery diode), wiring |
 | [docs/features.md](docs/features.md) | Feature reference |
 | [docs/ble-protocol.md](docs/ble-protocol.md) | Full public BLE GATT / command protocol |
 | [docs/flashing.md](docs/flashing.md) | Web Serial + BLE OTA flashing |
