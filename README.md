@@ -23,7 +23,7 @@ This repository includes:
 - Autonomous **dumper mode** with on-device dump storage
 - Privacy password list for protected tags
 - Battery level (BAS) and Device Information (DIS)
-- WS2811 / NeoPixel status LED (GPIO14)
+- WS2812 status LED
 - Firmware updates via **desktop Web Serial** or **BLE OTA** (Magic NFC app)
 
 See [docs/features.md](docs/features.md) for details.
@@ -32,7 +32,7 @@ See [docs/features.md](docs/features.md) for details.
 
 | Doc | Description |
 |-----|-------------|
-| [docs/hardware.md](docs/hardware.md) | Standard build (ESP32 + PN5180 + RGB LED), wiring diagrams, optional battery |
+| [docs/hardware.md](docs/hardware.md) | BOM, pinout, wiring |
 | [docs/features.md](docs/features.md) | Feature reference |
 | [docs/ble-protocol.md](docs/ble-protocol.md) | Full public BLE GATT / command protocol |
 | [docs/flashing.md](docs/flashing.md) | Web Serial + BLE OTA flashing |
